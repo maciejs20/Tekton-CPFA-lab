@@ -1,0 +1,17 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Task
+metadata:
+  name: echo-hello-world
+spec:
+  inputs:
+    params:
+      - name: pathToDockerFile
+        type: string
+        description: The path to docker
+        default: /workspace/docker-source/Dockerfile
+  steps:
+    - name: echo
+      image: ubuntu
+      command: ["echo"]
+      args: ["helloFromTekton params: ${inputs.params.pathToDockerFile}", "$(inputs.params.pathToDockerFile)"]
+
